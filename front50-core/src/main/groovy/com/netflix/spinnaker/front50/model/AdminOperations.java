@@ -14,34 +14,16 @@
  * limitations under the License.
  */
 
-apply plugin: "java-platform"
-apply plugin: "maven-publish"
+package com.netflix.spinnaker.front50.model;
 
-javaPlatform {
-  allowDependencies()
-}
+import lombok.Data;
 
+public interface AdminOperations {
+  void recover(Recover operation);
 
-if (Boolean.valueOf(enablePublishing)) {
-  publishing {
-    publications {
-      nebula(MavenPublication) {
-        from components.javaPlatform
-      }
-    }
-  }
-}
-
-dependencies {
-  api(platform("com.netflix.spinnaker.kork:kork-bom:$korkVersion"))
-
-  constraints {
-    api("com.netflix.spinnaker.fiat:fiat-api:$fiatVersion")
-    api("com.netflix.spinnaker.fiat:fiat-core:$fiatVersion")
-
-    rootProject
-      .subprojects
-      .findAll { it != project }
-      .each { api(project(it.path)) }
+  @Data
+  class Recover {
+    String objectType;
+    String objectId;
   }
 }

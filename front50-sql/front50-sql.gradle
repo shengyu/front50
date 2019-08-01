@@ -1,0 +1,27 @@
+apply from: "$rootDir/gradle/kotlin.gradle"
+
+dependencies {
+  implementation project(":front50-core")
+  implementation project(":front50-sql-mysql")
+
+  implementation "com.netflix.spinnaker.kork:kork-sql"
+  implementation "com.netflix.spinnaker.kork:kork-exceptions"
+
+  implementation "io.strikt:strikt-core"
+  implementation "com.netflix.hystrix:hystrix-core"
+  implementation "io.github.resilience4j:resilience4j-retry"
+
+  implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core"
+
+  testImplementation "io.mockk:mockk"
+  testImplementation "mysql:mysql-connector-java"
+  testImplementation "dev.minutest:minutest"
+  testImplementation "org.testcontainers:mysql"
+  testImplementation "org.junit.jupiter:junit-jupiter-api"
+}
+
+test {
+  useJUnitPlatform {
+    includeEngines "junit-vintage", "junit-jupiter"
+  }
+}
